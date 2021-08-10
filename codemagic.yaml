@@ -58,8 +58,8 @@ workflows:
           -Dsonar.c.file.suffixes=- \
           -Dsonar.cpp.file.suffixes=- \
           -Dsonar.objc.file.suffixes=- \
-          -Dsonar.branch.name=branch-develop \
-          -Dsonar.branch.target=branch-develop
+          -Dsonar.branch.name=$FCI_BRANCH \
+          -Dsonar.branch.target=$FCI_BRANCH
       artifacts:
         # - build/ios/ipa/*.ipa
         # - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.dSYM
