@@ -27,6 +27,9 @@ workflows:
             include: true
             source: true
       scripts:
+        - name: Branches
+          script: | 
+            echo "Build branch is: ${FCI_BRANCH}"
         - name: Install Sonar Scanner
           script: | 
             brew install sonar-scanner
