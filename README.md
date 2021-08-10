@@ -1,1 +1,2 @@
 # swiftlyqube
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?branch=branch-develop&project=nevercode-kevin_swiftly&metric=alert_status)](https://sonarcloud.io/dashboard?id=nevercode-kevin_swiftly&branch=branch-develop)

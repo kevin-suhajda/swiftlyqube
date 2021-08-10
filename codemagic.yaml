@@ -21,16 +21,24 @@ workflows:
         cocoapods: default
       triggering:
         events:
+          - push
           - pull_request
         branch_patterns:
           - pattern: branch-develop
             include: true
             source: true
+          - pattern: main
+            include: true
       scripts:
         - name: Branches
           script: | 
             echo "Build branch is: ${FCI_BRANCH}"
             echo "Is pull request: ${FCI_PULL_REQUEST}"
+            if [[ $FCI_BRANCH = "main" ]]
+            then
+              echo "No builds on push to main branch!"
+              exit 1
+            fi
         - name: Install Sonar Scanner
           script: | 
             brew install sonar-scanner
