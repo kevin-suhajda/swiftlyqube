@@ -54,7 +54,7 @@ workflows:
           -Dsonar.host.url=https://sonarcloud.io \
           -Dsonar.login=$SONAR_TOKEN \
           -Dsonar.projectVersion=1.0.0-cm \
-          -Dsonar.sources=.
+          -Dsonar.sources=. \
           -Dsonar.cfamily.build-wrapper-output.bypass=true \
           -Dsonar.coverageReportPaths=sonarqube-generic-coverage.xml \
           -Dsonar.c.file.suffixes=- \
