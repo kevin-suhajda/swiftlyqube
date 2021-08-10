@@ -21,11 +21,11 @@ workflows:
         cocoapods: default
       triggering:
         events:
-          - pull_request
+          - push
         branch_patterns:
-          - pattern: main
+          - pattern: develop
             include: true
-            source: false
+            source: true
       scripts:
         - name: Install Sonar Scanner
           script: | 
