@@ -57,7 +57,9 @@ workflows:
           -Dsonar.coverageReportPaths=sonarqube-generic-coverage.xml \
           -Dsonar.c.file.suffixes=- \
           -Dsonar.cpp.file.suffixes=- \
-          -Dsonar.objc.file.suffixes=-
+          -Dsonar.objc.file.suffixes=- \
+          -Dsonar.branch.name=develop \
+          -Dsonar.branch.target=develop
       artifacts:
         # - build/ios/ipa/*.ipa
         # - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.dSYM
