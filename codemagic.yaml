@@ -23,7 +23,7 @@ workflows:
         events:
           - push
         branch_patterns:
-          - pattern: develop
+          - pattern: branch-develop
             include: true
             source: true
       scripts:
