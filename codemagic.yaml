@@ -31,7 +31,7 @@ workflows:
           script: | 
             echo "Build branch is: ${FCI_BRANCH}"
             echo "Is pull request: ${FCI_PULL_REQUEST}"
-            if [[ $FCI_PULL_REQUEST == true]]
+            if [[ $FCI_PULL_REQUEST == true ]]
             then
               echo "Is a pull request"
               TARGET=$FCI_PULL_REQUEST_DEST
