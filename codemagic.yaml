@@ -31,7 +31,6 @@ workflows:
           script: | 
             echo "Build branch is: ${FCI_BRANCH}"
             echo "Is pull request: ${FCI_PULL_REQUEST}"
-
         - name: Install Sonar Scanner
           script: | 
             brew install sonar-scanner
