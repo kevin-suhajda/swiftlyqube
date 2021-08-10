@@ -21,7 +21,7 @@ workflows:
         cocoapods: default
       triggering:
         events:
-          - push
+          - pull_request
         branch_patterns:
           - pattern: branch-develop
             include: true
@@ -56,7 +56,7 @@ workflows:
             TARGET=$FCI_PULL_REQUEST_DEST
           else 
             echo "NOT a pull request"
-            TARGET=$FCI_BRANCH}
+            TARGET=$FCI_BRANCH
           fi
           echo "TARGET is set to ${TARGET}"
           export PATH=$PATH:$FCI_BUILD_DIR/sonar-scanner/bin
@@ -73,7 +73,7 @@ workflows:
           -Dsonar.cpp.file.suffixes=- \
           -Dsonar.objc.file.suffixes=- \
           -Dsonar.branch.name=$FCI_BRANCH \
-          -Dsonar.branch.target=$TARGERT
+          -Dsonar.branch.target=$TARGET
       artifacts:
         # - build/ios/ipa/*.ipa
         # - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.dSYM
