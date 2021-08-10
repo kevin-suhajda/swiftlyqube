@@ -23,10 +23,14 @@ workflows:
         events:
           - pull_request
         branch_patterns:
-          - pattern: main
+          - pattern: branch-develop
             include: true
-            source: false
+            source: true
       scripts:
+        - name: Branches
+          script: | 
+            echo "Build branch is: ${FCI_BRANCH}"
+            echo "Is pull request: ${FCI_PULL_REQUEST}"
         - name: Install Sonar Scanner
           script: | 
             brew install sonar-scanner
@@ -45,6 +49,15 @@ workflows:
           bash xccov-to-sonarqube-generic.sh Build/Logs/Test/*.xcresult/ > sonarqube-generic-coverage.xml
         - |
           # Generate and upload code analysis report
+          if [[ $FCI_PULL_REQUEST == true ]]
+          then
+            echo "Is a pull request"
+            TARGET=$FCI_PULL_REQUEST_DEST
+          else 
+            echo "NOT a pull request"
+            TARGET=$FCI_BRANCH
+          fi
+          echo "TARGET is set to ${TARGET}"
           export PATH=$PATH:$FCI_BUILD_DIR/sonar-scanner/bin
           sonar-scanner \
           -Dsonar.projectKey=$SONAR_PROJECT_KEY \
@@ -57,7 +70,9 @@ workflows:
           -Dsonar.coverageReportPaths=sonarqube-generic-coverage.xml \
           -Dsonar.c.file.suffixes=- \
           -Dsonar.cpp.file.suffixes=- \
-          -Dsonar.objc.file.suffixes=-
+          -Dsonar.objc.file.suffixes=- \
+          -Dsonar.branch.name=$FCI_BRANCH \
+          -Dsonar.branch.target=$TARGET
       artifacts:
         # - build/ios/ipa/*.ipa
         # - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.dSYM
