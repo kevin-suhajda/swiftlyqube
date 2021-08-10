@@ -31,6 +31,14 @@ workflows:
           script: | 
             echo "Build branch is: ${FCI_BRANCH}"
             echo "Is pull request: ${FCI_PULL_REQUEST}"
+            if [[ $FCI_PULL_REQUEST == true]]
+            then
+              echo "Is a pull request"
+              TARGET=$FCI_PULL_REQUEST_DEST
+            else 
+              echo "NOT a pull request"
+              TARGET=$FCI_BRANCH}
+            fi
         - name: Install Sonar Scanner
           script: | 
             brew install sonar-scanner
@@ -63,7 +71,7 @@ workflows:
           -Dsonar.cpp.file.suffixes=- \
           -Dsonar.objc.file.suffixes=- \
           -Dsonar.branch.name=$FCI_BRANCH \
-          -Dsonar.branch.target=$FCI_BRANCH
+          -Dsonar.branch.target=$TARGERT
       artifacts:
         # - build/ios/ipa/*.ipa
         # - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.dSYM
