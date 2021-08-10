@@ -21,8 +21,6 @@ workflows:
         cocoapods: default
       triggering:
         events:
-          - push
-          - tag
           - pull_request
         branch_patterns:
           - pattern: main
