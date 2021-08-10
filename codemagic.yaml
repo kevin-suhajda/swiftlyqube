@@ -31,14 +31,7 @@ workflows:
           script: | 
             echo "Build branch is: ${FCI_BRANCH}"
             echo "Is pull request: ${FCI_PULL_REQUEST}"
-            if [[ $FCI_PULL_REQUEST == true ]]
-            then
-              echo "Is a pull request"
-              TARGET=$FCI_PULL_REQUEST_DEST
-            else 
-              echo "NOT a pull request"
-              TARGET=$FCI_BRANCH}
-            fi
+
         - name: Install Sonar Scanner
           script: | 
             brew install sonar-scanner
@@ -57,6 +50,15 @@ workflows:
           bash xccov-to-sonarqube-generic.sh Build/Logs/Test/*.xcresult/ > sonarqube-generic-coverage.xml
         - |
           # Generate and upload code analysis report
+          if [[ $FCI_PULL_REQUEST == true ]]
+          then
+            echo "Is a pull request"
+            TARGET=$FCI_PULL_REQUEST_DEST
+          else 
+            echo "NOT a pull request"
+            TARGET=$FCI_BRANCH}
+          fi
+          echo "TARGET is set to ${TARGET}"
           export PATH=$PATH:$FCI_BUILD_DIR/sonar-scanner/bin
           sonar-scanner \
           -Dsonar.projectKey=$SONAR_PROJECT_KEY \
